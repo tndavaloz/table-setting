@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Excel File</h1>
+    <h1>Please select a file to upload.</h1>
     <vue-xlsx-table @on-select-file="handleSelectedFile">
       Select File
     </vue-xlsx-table>

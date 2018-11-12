@@ -2,14 +2,14 @@
   <div>
     <form>
       <span>Sort By </span>
-      <select name="Sort By" v-model="selected">
-        <option v-for="option in options" :value="option.value" :key="option.id">
+      <select name="Sort By" v-model="sortCategory">
+        <option v-for="option in options" :value="option" :key="option.id">
           {{ option.text }}
         </option>
       </select>
       <p>Number of Groups <input v-model.number="groups" type="number"></p>
     </form>
-    <button v-on:click="sortByD">Team, Tenure, Gender Sort</button>
+    <button v-if="sortCategory && groups" v-on:click="categorySort">{{ sortCategory.text }} Sort</button>
     <ul>
       <li v-for="person in sorted" :key=person.id>
         {{ person }}
@@ -19,85 +19,28 @@
 </template>
 
 <script>
+import { sortByCategory }  from './../../dev/index.js'
+
 export default {
   data() {
     return  {
       groups: null,
-      selected: null,
+      sortCategory: null,
       options: [
-        { text: 'Gender, Team, Tenure', value: 'A' },
-        { text: 'Gender, Tenure, Team', value: 'B' },
-        { text: 'Team, Gender, Tenure', value: 'C' },
-        { text: 'Team, Tenure, Gender', value: 'D' },
-        { text: 'Tenure, Gender, Team', value: 'E' },
-        { text: 'Tenure, Team, Gender', value: 'F' },
+        { text: '-', value: null },
+        { text: 'Gender, Team, Tenure', value: 'genderSort' },
+        { text: 'Gender, Tenure, Team', value: 'genderSort' },
+        { text: 'Team, Gender, Tenure', value: 'teamSort' },
+        { text: 'Team, Tenure, Gender', value: 'teamSort' },
+        { text: 'Tenure, Gender, Team', value: 'dateSort' },
+        { text: 'Tenure, Team, Gender', value: 'dateSort' },
       ],
       sorted: []
     }
   },
   methods: {
-    dateSort(a, b) {
-      let dateA = new Date(a.Date)
-      let dateB = new Date(b.Date)
-
-      if (dateA < dateB) {
-        this.genderSort(a, b)
-      }
-
-      if (dateA > dateB) {
-        return 1
-      }
-
-      return 0
-    },
-    genderSort(a, b) {
-      let genderA = a.Gender.toUpperCase()
-      let genderB  = b.Gender.toUpperCase()
-
-      if (genderA < genderB) {
-        return -1
-      }
-
-      if (genderA > genderB) {
-        return 1
-      }
-
-      return 0
-    },
-    teamSort(a, b) {
-      let teamA = a.Team.toUpperCase()
-      let teamB = b.Team.toUpperCase()
-
-      if (teamA < teamB) {
-        return -1
-      }
-
-      if (teamA > teamB) {
-        return 1
-      }
-
-      return this.dateSort(a, b)
-    },
-    sortByD: function() {
-      this.sorted = this.people.sort(this.teamSort)
-      let index = 0;
-      let tables = [];
-
-      for (let i = 0; i < this.groups; i++) {
-        tables.push([])
-      }
-
-      for (let i = 0; i < this.sorted.length; i++) {
-        tables[index].push(this.sorted[i])
-        index++
-        if (index == this.groups) {
-          index = 0
-        }
-      }
-
-      this.sorted = tables;
-      // eslint-disable-next-line
-      console.log(this.sorted)
+    categorySort() {
+      this.sorted = sortByCategory(this.sortCategory.value, this.people, this.groups)
     }
   },
   props: {
