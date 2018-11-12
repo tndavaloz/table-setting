@@ -1,18 +1,34 @@
 <template>
   <div>
-    <form>
-      <span>Sort By </span>
-      <select name="Sort By" v-model="sortCategory">
-        <option v-for="option in options" :value="option" :key="option.id">
-          {{ option.text }}
-        </option>
-      </select>
-      <p>Number of Groups <input v-model.number="groups" type="number"></p>
-    </form>
-    <button v-if="sortCategory && groups" v-on:click="categorySort">{{ sortCategory.text }} Sort</button>
-    <ul>
-      <li v-for="person in sorted" :key=person.id>
-        {{ person }}
+    <div class="input-group mb-3">
+      <input class="form-control" v-model.number="groups" type="number" placeholder="Enter Number of Groups">
+    </div>
+    <select class="form-control" v-model="sortCategory">
+      <option v-for="option in options" :value="option.value" :key="option.id">
+        {{ option.text }}
+      </option>
+    </select>
+    <button class="btn btn-primary btn-lg btn-block" v-if="sortCategory && groups" v-on:click="categorySort">{{ sortCategory.text }} Sort</button>
+    <ul class="list-group">
+      <li v-for="group in sorted" :key=group.id>
+        <table class="table table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th score="col">Name</th>
+              <th score="col">Team</th>
+              <th score="col">Gender</th>
+              <th score="col">Start Date</th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr v-for="person in group" :key="person.id">
+                <td>{{ person.Name }}</td>
+                <td>{{ person.Team }}</td>
+                <td>{{ person.Gender }}</td>
+                <td>{{ new Date(person.Date).toLocaleDateString("en-US") }}</td>
+              </tr>
+            </tbody>
+        </table>
       </li>
     </ul>
   </div>
@@ -25,22 +41,19 @@ export default {
   data() {
     return  {
       groups: null,
-      sortCategory: null,
       options: [
-        { text: '-', value: null },
-        { text: 'Gender, Team, Tenure', value: 'genderSort' },
-        { text: 'Gender, Tenure, Team', value: 'genderSort' },
-        { text: 'Team, Gender, Tenure', value: 'teamSort' },
-        { text: 'Team, Tenure, Gender', value: 'teamSort' },
-        { text: 'Tenure, Gender, Team', value: 'dateSort' },
-        { text: 'Tenure, Team, Gender', value: 'dateSort' },
+        { text: 'Gender, Team, Tenure', value: ['gender', 'team', 'date'] },
+        { text: 'Gender, Tenure, Team', value: ['gender', 'date', 'team'] },
+        { text: 'Team, Tenure, Gender', value: ['team', 'date', 'gender'] },
+        { text: 'Tenure, Gender, Team', value: ['date', 'gender', 'team'] }
       ],
+      sortCategory: null,
       sorted: []
     }
   },
   methods: {
     categorySort() {
-      this.sorted = sortByCategory(this.sortCategory.value, this.people, this.groups)
+      this.sorted = sortByCategory(this.sortCategory, this.people, this.groups)
     }
   },
   props: {
@@ -48,3 +61,17 @@ export default {
   }
 }
 </script>
+
+<style>
+ul {
+  list-style: none
+}
+
+.btn {
+  margin-bottom: 1em;
+}
+
+.form-control {
+  margin-bottom: 1em;
+}
+</style>

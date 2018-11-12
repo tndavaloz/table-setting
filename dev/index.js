@@ -10,7 +10,7 @@ function dateSort(a, b) {
     return 1
   }
 
-  return genderSort(a, b)
+  return 0
 }
 
 function genderSort(a, b) {
@@ -25,7 +25,7 @@ function genderSort(a, b) {
     return 1
   }
 
-  return teamSort(a, b)
+  return 0
 }
 
 function teamSort(a, b) {
@@ -45,14 +45,15 @@ function teamSort(a, b) {
 
 function sortByCategory(sortName, people, numberOfGroups) {
   let sortFuncs = {
-    'teamSort': teamSort,
-    'genderSort': genderSort,
-    'dateSort': dateSort
+    'team': teamSort,
+    'gender': genderSort,
+    'date': dateSort
   }
 
-  // eslint-disable-next-line
-  console.log(sortName)
-  let sorted = people.sort(sortFuncs[sortName])
+  let sorted = people.sort(sortFuncs[sortName[0]])
+  sorted = sorted.sort(sortFuncs[sortName[1]])
+  sorted = sorted.sort(sortFuncs[sortName[2]])
+
   let index = 0;
   let tables = [];
 
@@ -61,7 +62,7 @@ function sortByCategory(sortName, people, numberOfGroups) {
   }
 
   for (let i = 0; i < sorted.length; i++) {
-    tables[index].push(sorted[i].Name)
+    tables[index].push(sorted[i])
     index++
     if (index == numberOfGroups) {
       index = 0
