@@ -20,7 +20,7 @@ jobs:
       - run:
           name: Npm Install Step
           command: |
-						npm install
+            npm install
       - save_cache:
           paths:
             - node_modules
