@@ -1,16 +1,16 @@
 version: 2.1
 jobs:
-	build:
-		docker:
-			- image: circleci/node:10-browsers
+  build:
+    docker:
+		- image: circleci/node:10-browsers
 		steps:
-			- checkout
+		  - checkout
 			- run:
-					name: The First Step
+			    name: The First Step
 					command: |
-						echo 'This is the delivery pipeline'
+					  echo 'This is the delivery pipeline'
 			- run:
-					name: Code Has Arrived
+			    name: Code Has Arrived
 					command: |
 						ls -al
 						echo '^^^That should look familiar^^^'
