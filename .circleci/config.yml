@@ -12,7 +12,7 @@ jobs:
     parallelism: 1
     working_directory: ~/tndavaloz/table-setting
     steps:
-			- checkout
+      - checkout
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
