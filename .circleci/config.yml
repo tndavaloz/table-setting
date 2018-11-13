@@ -52,5 +52,7 @@ jobs:
               git add -A
               git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
 
-              git push origin $TARGET_BRANCH
+              # Push quietly to prevent showing the token in log
+              git push -q https://${GITHUB_PERSONAL_TOKEN}@github.com/giantswarm/docs.git $TARGET_BRANCH
+              # git push origin $TARGET_BRANCH
             fi
