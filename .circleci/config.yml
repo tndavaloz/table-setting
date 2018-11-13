@@ -10,7 +10,8 @@ jobs:
       - SOURCE_BRANCH: master
       - TARGET_BRANCH: gh-pages
       - GH_EMAIL: ndavaloz@gmail.com
-      - GH_NAME: tndavaloz
+			- GH_NAME: tndavaloz
+      - GH_TOKEN: 88459c85c02feaffb886797595dc1b77f2fea7ad
     parallelism: 1
     working_directory: ~/tndavaloz/table-setting
     steps:
