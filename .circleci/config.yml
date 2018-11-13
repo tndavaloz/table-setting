@@ -7,14 +7,14 @@ jobs:
     working_directory: ~/tndavaloz/table-setting
     steps:
       - checkout
-			- run:
-				name: Npm Install Step
-				command: |
-				  npm install
-			- run:
-				name: Npm Run Build Step
-				command: |
-					npm run build
+      - run:
+          name: Npm Install Step
+          command: |
+            npm install
+      - run:
+          name: Npm Run Build Step
+          command: |
+            npm run build
 deployment:
   staging:
     branch: master
