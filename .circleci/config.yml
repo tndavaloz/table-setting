@@ -8,7 +8,9 @@ jobs:
       - image: circleci/node:8.11.2
     environment:
       - SOURCE_BRANCH: master
-      - TARGET_BRANCH: gh-pages
+			- TARGET_BRANCH: gh-pages
+			- GH_EMAIL: ndavaloz@gmail.com
+      - GH_NAME: tndavaloz
     parallelism: 1
     working_directory: ~/tndavaloz/table-setting
     steps:
@@ -32,8 +34,8 @@ jobs:
           name: Deploy
           command: |
             if [ $CIRCLE_BRANCH == $SOURCE_BRANCH ]; then
-              git config --global ndavalos@gmail.com $GH_EMAIL
-              git config --global Nick $GH_NAME
+              git config --global user.email $GH_EMAIL
+              git config --global user.name $GH_NAME
 
               git clone $CIRCLE_REPOSITORY_URL out
 
