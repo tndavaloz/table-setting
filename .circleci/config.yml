@@ -45,8 +45,6 @@ jobs:
               cd ..
 
               npm run build
-              ls -la
-              cp -a build/. out/.
 
               mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
               cd out
