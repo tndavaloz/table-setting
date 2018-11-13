@@ -1,22 +1,25 @@
-version: 2.0
+version: 2
 jobs:
- build:
-   # pre-built images: https://circleci.com/docs/2.0/circleci-images/
-   docker:
-     - image: circleci/node:10-browsers
-   steps:
-     - checkout
-     - run:
-         name: The First Step
-         command: |
-           echo 'Hello World!'
-           echo 'This is the delivery pipeline'
-     - run:
-         name: Code Has Arrived
-         command: |
-           ls -al
-           echo '^^^That should look familiar^^^'
-     - run:
-         name: Running in a Unique Container
-         command: |
-           node -v
+  build:
+    docker:
+      - image: circleci/node:8.11.2
+    parallelism: 1
+    working_directory: ~/tndavaloz/table-setting
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-npm-{{ checksum "package.lock" }}
+      - run: npm install
+      - save_cache:
+          key: v1-npm-{{ checksum "package.lock" }}
+          paths:
+            - ./node_modules
+      - run: npm run build
+workflows:
+  version: 2
+  build-on-master:
+    jobs:
+      - build
+          filters:
+            branches:
+              only: master
