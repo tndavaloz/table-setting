@@ -10,7 +10,7 @@ jobs:
       - SOURCE_BRANCH: master
       - TARGET_BRANCH: gh-pages
       - GH_EMAIL: ndavaloz@gmail.com
-      - GH_NAME: tndavaloz
+     - GH_NAME: tndavaloz
     parallelism: 1
     working_directory: ~/tndavaloz/table-setting
     steps:
@@ -45,7 +45,7 @@ jobs:
               cd ..
 
               npm run build
-
+              ls -la
               cp -a build/. out/.
 
               mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
