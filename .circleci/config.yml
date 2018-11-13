@@ -7,11 +7,17 @@ jobs:
     working_directory: ~/tndavaloz/table-setting
     steps:
       - checkout
-      - restore_cache:
-          key: v1-npm-{{ checksum "package.lock" }}
-      - run: npm install
-      - save_cache:
-          key: v1-npm-{{ checksum "package.lock" }}
-          paths:
-            - ./node_modules
-      - run: npm run build
+			- run:
+				name: Npm Install Step
+				command: |
+				  npm install
+			- run:
+				name: Npm Run Build Step
+				command: |
+					npm run build
+deployment:
+  staging:
+    branch: master
+    commands:
+      - ./scripts/deploy-ghpages.sh build
+
