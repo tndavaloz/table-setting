@@ -31,7 +31,7 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### To Dos
-[x] Set up CircleCI to make sure tests pass on each PR to master
+- [x] Set up CircleCI to make sure tests pass on each PR to master
 - [ ] Continue unit testing with Jest
 - [ ] Set up E2E tests with either Cypress or TestCafe
 - [ ] Clean up UI
