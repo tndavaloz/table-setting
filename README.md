@@ -31,9 +31,9 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### To Dos
-[] Set up CircleCI to make sure tests pass on each PR to master
-[] Continue unit testing with Jest
-[] Set up E2E tests with either Cypress or TestCafe
-[] Clean up UI
-[] Add ability to upload any excel file (do not need to have certain headers - constraint must be first row containers headers)
-[] Add better sort algorithm 
+[x] Set up CircleCI to make sure tests pass on each PR to master
+- [ ] Continue unit testing with Jest
+- [ ] Set up E2E tests with either Cypress or TestCafe
+- [ ] Clean up UI
+- [ ] Add ability to upload any excel file (do not need to have certain headers - constraint must be first row containers headers)
+- [ ] Add better sort algorithm 
