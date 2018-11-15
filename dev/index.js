@@ -54,17 +54,18 @@ function sortByCategory(sortName, people, numberOfGroups) {
   sorted = sorted.sort(sortFuncs[sortName[1]])
   sorted = sorted.sort(sortFuncs[sortName[2]])
 
-  let index = 0;
-  let tables = [];
+  let index = 0
+  let tables = []
+  let numOfTables = Math.floor(sorted.length/numberOfGroups)
 
-  for (let i = 0; i < numberOfGroups; i++) {
+  for (let i = 0; i < numOfTables; i++) {
     tables.push([])
   }
 
   for (let i = 0; i < sorted.length; i++) {
     tables[index].push(sorted[i])
     index++
-    if (index == numberOfGroups) {
+    if (index == numOfTables) {
       index = 0
     }
   }
